@@ -33,7 +33,7 @@ class ContactList extends StatelessWidget {
     }
 
     return RefreshIndicator(
-      onRefresh: () => context.read<ContactsController>().loadContacts(),
+      onRefresh: () => context.read<ContactsController>().loadContact(),
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(vertical: 8),
         itemCount: contacts.length,
@@ -47,7 +47,7 @@ class ContactList extends StatelessWidget {
                 ? null
                 : () => context.pushNamed(
                       RouteConstants.contactDetailName,
-                      pathParameters: {'id': '$contactId'},
+                      pathParameters: {'id': contactId},
                     ),
           );
         },

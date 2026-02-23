@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "579384342285",
+    "project_id": "contacts-b4d19",
+    "storage_bucket": "contacts-b4d19.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579384342285:android:eb908a2b33b0cae96a6244",
+        "android_client_info": {
+          "package_name": "com.example.google_contacts"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCec43ulTFzybA52_Jl9gWWsr2kcazOJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

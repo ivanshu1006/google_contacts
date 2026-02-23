@@ -10,7 +10,7 @@ class Contact {
     required this.updatedAt,
   });
 
-  final int? id;
+  final String? id;
   final String name;
   final String phone;
   final String? email;
@@ -20,7 +20,7 @@ class Contact {
   final DateTime updatedAt;
 
   Contact copyWith({
-    int? id,
+    String? id,
     String? name,
     String? phone,
     String? email,
@@ -41,27 +41,26 @@ class Contact {
     );
   }
 
-  Map<String, Object?> toMap() {
+  Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'phone': phone,
       'email': email,
       'notes': notes,
-      'is_favorite': isFavorite ? 1 : 0,
+      'is_favorite': isFavorite,
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
     };
   }
 
-  static Contact fromMap(Map<String, Object?> map) {
+  static Contact fromMap(Map<String, dynamic> map, {String? id}) {
     return Contact(
-      id: map['id'] as int?,
+      id: id,
       name: (map['name'] as String?) ?? '',
       phone: (map['phone'] as String?) ?? '',
       email: map['email'] as String?,
       notes: map['notes'] as String?,
-      isFavorite: (map['is_favorite'] as int? ?? 0) == 1,
+      isFavorite: (map['is_favorite'] as bool?) ?? false,
       createdAt: DateTime.parse(map['created_at'] as String),
       updatedAt: DateTime.parse(map['updated_at'] as String),
     );

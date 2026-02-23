@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
 
 import 'constants/routes_constant.dart';
-import 'features/contacts/views/contact_detail_view.dart';
-import 'features/contacts/views/contact_form_view.dart';
-import 'features/contacts/views/home_view.dart';
+import 'features/contacts_firebase/views/contact_detail_view.dart';
+import 'features/contacts_firebase/views/contact_form_view.dart';
+import 'features/contacts_firebase/views/home_view.dart';
 import 'features/splash/views/splash_view.dart';
 import 'widgets/k_dialog.dart';
 
@@ -30,7 +30,7 @@ final appRouter = GoRouter(
           name: RouteConstants.contactDetailName,
           path: RouteConstants.contactDetail,
           builder: (context, state) {
-            final id = int.tryParse(state.pathParameters['id'] ?? '');
+            final id = state.pathParameters['id'];
             return ContactDetailView(contactId: id);
           },
           routes: [
@@ -38,7 +38,7 @@ final appRouter = GoRouter(
               name: RouteConstants.contactEditName,
               path: RouteConstants.contactEdit,
               builder: (context, state) {
-                final id = int.tryParse(state.pathParameters['id'] ?? '');
+                final id = state.pathParameters['id'];
                 return ContactFormView(contactId: id);
               },
             ),

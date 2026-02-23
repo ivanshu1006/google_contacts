@@ -6,14 +6,16 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../constants/routes_constant.dart';
 import '../../../utils/initials.dart';
 import '../../../widgets/app_snackbar.dart';
+import '../../../widgets/k_app_bar.dart';
 import '../../../widgets/k_dialog.dart';
 import '../controllers/contacts_controller.dart';
 import '../models/contact.dart';
+import '../widgets/info_tile.dart';
 
 class ContactDetailView extends StatelessWidget {
   const ContactDetailView({super.key, required this.contactId});
 
-  final int? contactId;
+  final String? contactId;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +23,15 @@ class ContactDetailView extends StatelessWidget {
     final contact = contactId == null ? null : controller.getById(contactId!);
 
     if (contact == null) {
-      return Scaffold(
-        appBar: AppBar(title: const Text('Contact')),
-        body: const Center(child: Text('Contact not found.')),
+      return const Scaffold(
+        appBar: KAppBar(title: 'Contact'),
+        body: Center(child: Text('Contact not found.')),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Contact details'),
+      appBar: KAppBar(
+        title: 'Contact Details',
         actions: [
           IconButton(
             icon: const Icon(Icons.delete_outline),
@@ -74,7 +76,7 @@ class ContactDetailView extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const SizedBox(height: 24),
-                  _InfoTile(
+                  InfoTile(
                     icon: Icons.phone,
                     label: 'Phone',
                     value: contact.phone,
@@ -84,13 +86,13 @@ class ContactDetailView extends StatelessWidget {
                     ),
                   ),
                   if (contact.email != null && contact.email!.isNotEmpty)
-                    _InfoTile(
+                    InfoTile(
                       icon: Icons.email_outlined,
                       label: 'Email',
                       value: contact.email!,
                     ),
                   if (contact.notes != null && contact.notes!.isNotEmpty)
-                    _InfoTile(
+                    InfoTile(
                       icon: Icons.notes_outlined,
                       label: 'Notes',
                       value: contact.notes!,
@@ -149,34 +151,5 @@ class ContactDetailView extends StatelessWidget {
     } catch (_) {
       AppSnackbar.show('Unable to open the dialer.');
     }
-  }
-}
-
-class _InfoTile extends StatelessWidget {
-  const _InfoTile({
-    required this.icon,
-    required this.label,
-    required this.value,
-    this.trailing,
-    this.isMultiline = false,
-  });
-
-  final IconData icon;
-  final String label;
-  final String value;
-  final Widget? trailing;
-  final bool isMultiline;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 12),
-      child: ListTile(
-        leading: Icon(icon),
-        title: Text(label),
-        subtitle: Text(value, maxLines: isMultiline ? null : 1),
-        trailing: trailing,
-      ),
-    );
   }
 }

@@ -1,26 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:frappe_flutter_app/constants/app_colors.dart';
 import 'package:provider/provider.dart';
 
-import 'features/contacts/controllers/contacts_controller.dart';
-import 'features/contacts/data/contacts_database.dart';
-import 'features/contacts/repositories/contacts_repository.dart';
+import 'features/contacts_firebase/controllers/contacts_controller.dart';
+import 'features/contacts_firebase/data/contacts_repository.dart';
+import 'firebase_options.dart';
 import 'router.dart';
 import 'widgets/app_snackbar.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MultiProvider(
       providers: [
-        Provider<ContactsDatabase>(
-          create: (_) => ContactsDatabase.instance,
-        ),
-        ProxyProvider<ContactsDatabase, ContactsRepository>(
-          update: (_, db, __) => ContactsRepository(db),
-        ),
         ChangeNotifierProvider<ContactsController>(
-          create: (context) =>
-              ContactsController(context.read<ContactsRepository>()),
+          create: (_) => ContactsController(ContactsRepository()),
         ),
       ],
       child: const MyApp(),
